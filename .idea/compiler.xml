@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="Coding" />
+        <module name="Nettystudy" />
+        <module name="Order" />
+        <module name="Rpc" />
+        <module name="单子" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Coding" target="1.8" />
+      <module name="Nettystudy" target="1.8" />
+      <module name="Order" target="1.8" />
+      <module name="Rpc" target="1.8" />
+      <module name="Study" target="1.8" />
+      <module name="单子" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
