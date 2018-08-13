@@ -30,10 +30,10 @@ public class MaxSquare {
                     if (matrix[i][j]==0){
                         dp[i][j] = 0;
                     }else {
-                        dp[i][j] = java.lang.Math.min(dp[i-1][j-1], java.lang.Math.min(dp[i-1][j],dp[i][j-1]))+1;
+                        dp[i][j] = Math.min(dp[i-1][j-1], java.lang.Math.min(dp[i-1][j],dp[i][j-1]))+1;
                     }
                 }
-                max = java.lang.Math.max(max,dp[i][j]);
+                max = Math.max(max,dp[i][j]);
             }
         }
         return max*max;

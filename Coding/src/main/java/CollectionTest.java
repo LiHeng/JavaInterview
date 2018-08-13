@@ -1,5 +1,7 @@
 import java.sql.Connection;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.locks.LockSupport;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -20,6 +22,8 @@ public class CollectionTest {
 
         ReentrantLock lock = new ReentrantLock();
 
+        Collections.sort(null);
+        Arrays.sort(new Object[2]);
         hashMap.put("lihang", "ChongQing");
         ThreadLocal<Connection> connections = new ThreadLocal<>();
         LockSupport.park();
