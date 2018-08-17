@@ -1,12 +1,15 @@
+import java.util.concurrent.atomic.AtomicReference;
+
 public class SparseMatrix {
 
+    //稀疏矩阵乘法优化
     public static int[][] multiply(int[][] matrixA, int[][] matrixB){
         int[][] res = new int[matrixA.length][matrixB[0].length];
 
         for (int i = 0; i < matrixA.length; i++) {
-            for (int j = 0; j < matrixB[0].length; j++) {
+            for (int j = 0; j < matrixB.length; j++) {
                 if (matrixA[i][j]!=0){            //当A矩阵中的元素不为0时才去运算
-                    for (int k = 0; k < matrixB.length; k++) {
+                    for (int k = 0; k < matrixB[0].length; k++) {
                         res[i][k] += matrixA[i][j]*matrixB[j][k];
                     }
                 }
