@@ -1,36 +1,80 @@
 package niuke;
 
-import java.math.BigInteger;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
-public class Main {
+public class Main{
 
-    public static BigInteger fac(BigInteger n){
-        if (Objects.equals(n, BigInteger.ONE)){
-            return BigInteger.ONE;
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int codepoints[] = new int[n];
+        for (int i = 0; i < n; i++) {
+            codepoints[i] = in.nextInt();
         }
 
-        return fac(n.subtract(BigInteger.ONE)).multiply(n);
-    }
-
-    public static int getZero(BigInteger m){
-        String s = m.toString();
-        char[] arr = s.toCharArray();
-        int count=0;
-        for (int i=arr.length-1; i >=0; i--) {
-            if (arr[i]=='0'){
-                count++;
+        int index=0;
+        boolean flag = true;
+        while (index<n){
+            String coding = getBinaryString(codepoints[index]);
+            if (coding.startsWith("0")){
+                index++;
+            }else if (coding.startsWith("110")){
+                if (index+1<n){
+                    if (!startWith(codepoints[index+1],"10")){
+                        flag = false;
+                        break;
+                    }
+                }else {
+                    flag = false;
+                    break;
+                }
+                index+=2;
+            }else if (coding.startsWith("1110")){
+                if (index+2<n){
+                    if (!startWith(codepoints[index+1],"10")||!startWith(codepoints[index+2],"10")){
+                        flag = false;
+                        break;
+                    }
+                }else {
+                    flag = false;
+                    break;
+                }
+                index+=3;
+            }else if(coding.startsWith("11110")){
+                if (index+3<n){
+                    if (!startWith(codepoints[index+1],"10")||!startWith(codepoints[index+2],"10")
+                            ||!startWith(codepoints[index+3],"10")){
+                        flag = false;
+                        break;
+                    }
+                }else {
+                    flag = false;
+                    break;
+                }
+                index+=4;
             }else {
+                flag = false;
                 break;
             }
         }
-        return count;
+        System.out.println(flag?1:0);
     }
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        String n= scanner.nextLine();
-        System.out.println(getZero(fac(new BigInteger(n))));
+    private static boolean startWith(int code, String str){
+        String binary = getBinaryString(code);
+        return binary.startsWith(str);
     }
+
+    private static String getBinaryString(int i){
+        String binary = Integer.toBinaryString(i);
+        if (binary.length()>8){
+            return binary.substring(binary.length()-8);
+        }
+        while (binary.length()<8){
+            binary = '0'+binary;
+        }
+        return binary;
+    }
+
 }

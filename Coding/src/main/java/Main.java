@@ -1,58 +1,53 @@
 import java.util.*;
 
+
 public class Main {
+
 
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String line = scanner.nextLine();
-
-        System.out.println(isValid(line));
-    }
-
-    private static int isValid(String line){
-        String current = "";
-        Stack<Character> stack = new Stack<>();
-        Stack<Integer> num = new Stack<>();
-        int i=0;
-        for (i=0;i<line.length();i++) {
-            char c = line.charAt(i);
-            if (isOp(c)){
-                stack.push(c);
-            }else if (c >= '0' && c <= '9'){
-                num.push(c-'0');
-            }else if(c=='('){
-                stack.push(c);
-            }else if (c==')'){
-                char op = stack.pop();
-                while(op!='('){
-                    if(op=='^'){
-                        num.push(num.pop()+1);
-                    }else if (op=='+'){
-                        num.push(num.pop()+num.pop());
-                    }else if (op=='*'){
-                        num.push(num.pop()*num.pop());
-                    }else if (op=='-'){
-                        num.push(num.pop()-num.pop());
-                    }else if (op=='/'){
-                        num.push(num.pop()/num.pop());
-                    }
-                    op = stack.pop();
+        int a = scanner.nextInt();
+        int b = scanner.nextInt();
+        if (a%b==0){
+            System.out.println((double) a/b);
+        }else {
+            HashMap<Integer,Integer> lefts = new HashMap<>();
+            String prefix = "";
+            if (a<b){
+                prefix = "0.";
+            }else {
+                prefix+=String.valueOf(a/b);
+                a = a%b;
+                prefix+=".";
+            }
+            int index = 0;
+            String tail = "";
+            while (!lefts.containsKey(a)&&a!=0){
+                lefts.put(a,index);
+                a = a*10;
+                if (a<b){
+                    tail+="0";
+                    index++;
+                    continue;
                 }
-            }else if (c==' '){
-               continue;
+                tail+=a/b;
+                a = a%b;
+                index++;
+            }
+
+            if (a==0){
+                System.out.println(prefix+tail);
+            }else {
+                int repeatIndex = lefts.get(a);
+                String repeat = tail.substring(repeatIndex, index);
+                tail = tail.substring(0, repeatIndex);
+                tail = tail + "(" + repeat + ")";
+                System.out.println(prefix + tail);
             }
         }
-
-        if (stack.isEmpty()){
-            return num.get(0);
-        }else {
-            return -1;
-        }
     }
 
-    private static boolean isOp(char c){
-        return c=='^'||c=='+'||c=='*';
-    }
 
 }
+

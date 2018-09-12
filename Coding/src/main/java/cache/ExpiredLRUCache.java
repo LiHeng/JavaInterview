@@ -1,6 +1,7 @@
 package cache;
 
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class ExpiredLRUCache<K,V> {
 
@@ -118,18 +119,17 @@ public class ExpiredLRUCache<K,V> {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        ExpiredLRUCache<String,Integer> cache = new ExpiredLRUCache<>(5);
-        cache.set("1",1);
-        cache.set("2",1);
-        cache.set("3",1);
-        cache.set("4",1);
-        cache.set("5",1);
-        cache.set("1",2);
-        cache.set("6",3,2000);
-        System.out.println(cache.get("2"));
-        Thread.sleep(1500);
-        System.out.println(cache.get("6"));
-        Thread.sleep(700);
-        System.out.println(cache.get("6"));
+        Scanner scanner = new Scanner(System.in);
+        int capacity = Integer.valueOf(scanner.nextLine());
+        ExpiredLRUCache<Integer,Integer> cache = new ExpiredLRUCache<>(capacity);
+        while(scanner.hasNextLine()){
+            String[] tokens = scanner.nextLine().split(" ");
+            if (tokens[0].equals("p")){
+                cache.set(Integer.valueOf(tokens[1]),Integer.valueOf(tokens[2]));
+            }else{
+                Integer v = cache.get(Integer.valueOf(tokens[1]));
+                System.out.println(v==null?-1:v);
+            }
+        }
     }
 }

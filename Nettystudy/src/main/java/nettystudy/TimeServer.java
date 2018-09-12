@@ -20,8 +20,8 @@ public class TimeServer {
 
     public void bind(int port) throws Exception{
         //创建nio线程组
-        EventLoopGroup bossGroup = new NioEventLoopGroup();
-        EventLoopGroup workerGroup = new NioEventLoopGroup();
+        EventLoopGroup bossGroup = new NioEventLoopGroup();    //acceptor线程组，用于处理客户端的连接请求
+        EventLoopGroup workerGroup = new NioEventLoopGroup();  //负责I/O操作的线程组
         try {
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup,workerGroup)

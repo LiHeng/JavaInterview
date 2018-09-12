@@ -1,5 +1,6 @@
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 /**
  * 利用LinkedHashMap 实现一个 LRU 缓存
@@ -29,29 +30,19 @@ public class LRUCache<K,V> extends LinkedHashMap<K,V> {
     }
 
     public static void main(String[] args){
-        LRUCache<Integer,String> cache = new LRUCache<>(5);
-        cache.put(1,"str1");
-        showCache(cache);
-        cache.put(2,"str2");
-        showCache(cache);
-        cache.put(3,"str3");
-        showCache(cache);
-        cache.put(4,"str4");
-        showCache(cache);
-        cache.put(5,"str5");
-        showCache(cache);
-
-        cache.get(1);
-        showCache(cache);
-
-        cache.put(6,"str6");
-        showCache(cache);
-    }
-
-    public static void showCache(LRUCache<Integer,String> cache){
-        System.out.println("\nContent of cache\n");
-        for (Map.Entry<Integer,String> entry:cache.entrySet()){
-            System.out.println(entry.getValue());
+        Scanner scanner = new Scanner(System.in);
+        int capacity = Integer.valueOf(scanner.nextLine());
+        LRUCache<Integer,Integer> cache = new LRUCache<>(capacity);
+        while(scanner.hasNextLine()){
+            String[] tokens = scanner.nextLine().split(" ");
+            if (tokens[0].equals("p")){
+                cache.put(Integer.valueOf(tokens[1]),Integer.valueOf(tokens[2]));
+            }else{
+                Integer v = cache.get(Integer.valueOf(tokens[1]));
+                System.out.println(v==null?-1:v);
+            }
         }
     }
+
+
 }

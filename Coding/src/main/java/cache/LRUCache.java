@@ -1,6 +1,7 @@
 package cache;
 
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class LRUCache<K,V> {
 
@@ -46,7 +47,7 @@ public class LRUCache<K,V> {
             CacheNode<K,V> node = map.get(key);
             V tmp = node.value;
             node.value = value;
-            moveToHead(node);
+            //moveToHead(node);
             return tmp;
         }else {
             CacheNode<K,V> node = new CacheNode<>();
@@ -62,16 +63,6 @@ public class LRUCache<K,V> {
         }
 
         return null;
-    }
-
-    public V remove(K key) {
-        CacheNode<K,V> node = map.get(key);
-        if (node==null){
-            return null;
-        }
-        node.pre.next = node.next;
-        node.next.pre = node.pre;
-        return node.value;
     }
 
     private void deleteFromTail() {
@@ -97,5 +88,7 @@ public class LRUCache<K,V> {
         head.next = node;
         node.pre = head;
     }
+
+
 
 }

@@ -44,6 +44,35 @@ public class Sorting {
             quickSort(arr,i,high);
     }
 
+    public static int partition(int arr[], int start, int end){
+        System.out.println(start+" "+end);
+        int pivot = arr[start];
+        int p = start+1;
+        int q = end;
+        while (p<=q){
+            while (p<=q&&arr[p]<pivot){
+                p++;
+            }
+            while (p<=q&&arr[q]>=pivot){
+                q--;
+            }
+            if (p<q){
+                swap(arr,p,q);
+            }
+        }
+        swap(arr,start,q);
+        return q;
+    }
+
+    public static void quickSort2(int arr[],int low, int high){
+        if (low>=high){
+            return;
+        }
+        int mid = partition(arr,low,high);
+        quickSort2(arr,low,mid-1);
+        quickSort2(arr,mid+1,high);
+    }
+
     public static void mergeSort(int[] a, int low, int high){
         int mid = low + (high-low)/2;
         if (low<high){
@@ -80,7 +109,7 @@ public class Sorting {
 
     public static void main(String[] args) {
         int a[] = new int[]{4,5,8,4,23,6,7,89,1};
-        quickSort(a,0,a.length-1);
+        quickSort2(a,0,a.length-1);
         printArray(a);
 
         a = new int[]{4,5,8,4,23,6,7,89,1};
